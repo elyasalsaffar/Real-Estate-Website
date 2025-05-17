@@ -34,6 +34,8 @@ app.use('/auth', authRouter);
 
 app.use('/users', userRouter);
 
+app.use('/listings', listingRouter);
+
 app.get('/', (req, res) => {
   res.render('index.ejs')
 });

@@ -3,7 +3,7 @@ const router = express.Router();
 const Listing = require('../models/Listing.js');
 const listingController = require('../controllers/listingController.js');
 
-router.get('/', listingController.getAllListings);
+router.get('/all', listingController.getAllListings);
 
 
 module.exports = router;
