@@ -1,31 +1,42 @@
-const express = require('express')
-const logger = require('morgan')
-const methodOverride = require('method-override')
-const session = require('express-session')
-require('dotenv').config()
+const express = require('express');
+const logger = require('morgan');
+const methodOverride = require('method-override');
+const session = require('express-session');
+require('dotenv').config();
+const authRouter = require('./routes/authRouter.js');
+const userRouter = require('./routes/userRouter.js');
 
-const PORT = process.env.PORT ? process.env.PORT : 3000
+const PORT = process.env.PORT ? process.env.PORT : 3000;
 
-const db = require('./db')
+const db = require('./db');
 
-const app = express()
+const app = express();
 
-app.use(logger('dev'))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(methodOverride('_method'))
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true
-//   })
-// )
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
+  })
+);
+// app.use(express.static('public'));
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
+app.use('/auth', authRouter);
+
+app.use('/users', userRouter);
 
 app.get('/', (req, res) => {
-  res.send('Our app is connected. . . ')
-})
+  res.render('index.ejs')
+});
 
 app.listen(PORT, () => {
   console.log(`Running Server on Port ${PORT} . . . `)
-})
+});
