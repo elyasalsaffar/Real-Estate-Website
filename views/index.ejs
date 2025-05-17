@@ -1,6 +1,11 @@
 <%- include('./partials/header.ejs') %>
 
 <h1>Welcome to the Real Estate Website!</h1>
+
+<% if (!user) { %>
 <p>Sign in or sign up to get started.</p>
+<% } else { %>
+<p>Your are signed in</p>
+<% } %>
 
 <%- include('./partials/footer.ejs') %>
