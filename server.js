@@ -5,6 +5,7 @@ const session = require('express-session');
 require('dotenv').config();
 const authRouter = require('./routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
+const listingRouter = require('./routes/listingRouter.js');
 
 const PORT = process.env.PORT ? process.env.PORT : 3000;
 
