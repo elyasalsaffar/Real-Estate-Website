@@ -17,7 +17,7 @@ const registerUser = async (req, res) => {
             first: req.body.first,
             last: req.body.last,
             picture: req.body.picture,
-            recipes: []
+            listings: []
         });
         res.render('./auth/thanks.ejs', { user });
     } catch (error) {

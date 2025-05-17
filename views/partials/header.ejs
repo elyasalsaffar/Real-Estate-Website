@@ -8,7 +8,6 @@
 </head>
 <body>
     <nav>
-        <a href="/">Home</a>
 
         <% if (!user) { %>
             <a href="/auth/sign-up">Sign Up</a>
@@ -16,6 +15,7 @@
         <% } else { %>
             <a href="/users/<%= user._id %>">My Profile</a>
             <a href="/auth/sign-out">Sign Out</a>
+            <a href="/listings/all">View All</a>
         <% } %>
     </nav>
 <main>
