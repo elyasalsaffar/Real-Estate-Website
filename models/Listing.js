@@ -12,6 +12,7 @@ const listingSchema = new mongoose.Schema({
     images: { type: [String], required: true },
     price: { type: Number, required: true },
     status: { type: String, required: true, enum: ['available', 'sold', 'pending'] },
+    isApproved: { type: Boolean, required: true },
     author: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', 

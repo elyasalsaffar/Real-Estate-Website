@@ -5,5 +5,6 @@ const listingController = require('../controllers/listingController.js');
 
 router.get('/all', listingController.getAllListings);
 
+router.get('/:id', listingController.getSingleListing);
 
 module.exports = router;
