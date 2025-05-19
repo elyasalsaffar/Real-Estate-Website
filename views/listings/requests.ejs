@@ -1,23 +1,27 @@
 <%- include('../partials/header.ejs') %>
 
-<h2>Find a Real Estate Suitable to Your Lifestyle!</h2>
+<h2>Pending Listings:</h2>
+<p>Please Either Accept or Reject the Listings.</p>
+    <a href="listings/requestsList/<%= listing._id %>">Approved Listings</a>
+    <a href="listings/requestsList/<%= listing._id %>">Rejected Listings</a>
 <div class="listings-grid">
     <% listings.forEach(listing => { %>
-        <% if (listing.isApproved) { %>
         <div class="listing-card">
             <div class="image-container">
                 <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
             </div>
-            
             <div class="listing-details">
                 <h3><%= listing.title %></h3>
                 <p class="location"><strong>Location:</strong> <%= listing.location%></p>
                 <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
                 <p class="price"><strong>Price:</strong> <%= listing.price%></p>
                 <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                <div>
+                    <button type="submit">Accept</button>
+                    <button type="submit">Reject</button>
+                </div>
             </div>
         </div>
-        <% } %>
     <% }) %>
 </div>
 

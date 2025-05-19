@@ -1,9 +1,9 @@
 <%- include('../partials/header.ejs') %>
 
-<h2>Find a Real Estate Suitable to Your Lifestyle!</h2>
 <div class="listings-grid">
     <% listings.forEach(listing => { %>
         <% if (listing.isApproved) { %>
+        <h2>Approved Listings!</h2>
         <div class="listing-card">
             <div class="image-container">
                 <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">

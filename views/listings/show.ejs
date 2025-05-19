@@ -16,9 +16,9 @@
             <p class="bathrooms"><strong>Bathrooms:</strong> <%= listing.bathrooms%></p>
             <p class="status"><strong>Status:</strong> <%= listing.status %></p>
             <% if (listing.isForSale) { %>
-                <p><strong>For Sale:</strong> Yes</p>
+                <p><strong>Purpose:</strong> For Sale</p>
                 <% } else { %>
-                <p><strong>For Sale:</strong> No</p>
+                <p><strong>Purpose:</strong> For Rent</p>
             <% } %>
         </div>
         <a href="/listings/all" class="back-button">Back to All Listings</a>
