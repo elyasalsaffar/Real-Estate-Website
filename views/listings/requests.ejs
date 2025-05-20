@@ -1,38 +1,206 @@
 <%- include('../partials/header.ejs') %>
 
-<h2>Pending Listings:</h2>
-<p>Please Either Accept or Reject the Listings.</p>
-    <a href="listings/requestsList/<%= listing._id %>">Approved Listings</a>
-    <a href="listings/requestsList/<%= listing._id %>">Rejected Listings</a>
-<div class="listings-grid">
-    <% listings.forEach(listing => { %>
-        <div class="listing-card">
-            <div class="image-container">
-                <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+<div id="top" class="requests-page-container">
+    <h1>Listing Requests Management</h1>
+    
+    <div class="quick-nav">
+        <a href="#pending">Pending</a>
+        <a href="#approved">Approved</a>
+        <a href="#rejected">Rejected</a>
+    </div>
+
+    <section id="pending" class="pending-requests-section">
+        <h2>Pending Listings:</h2>
+        <p>Please Either Accept or Reject the Listings.</p>
+
+        <% if (pendingListings && pendingListings.length > 0) { %>
+            <div class="listings-grid">
+                <% pendingListings.forEach(listing => { %>
+                    <div class="listing-card">
+                        <div class="image-container">
+                            <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+                        </div>
+                        <div class="listing-details">
+                            <h3><%= listing.title %></h3>
+                            <p class="location"><strong>Location:</strong> <%= listing.location%></p>
+                            <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
+                            <p class="price"><strong>Price:</strong> <%= listing.price%></p>
+                            <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                            <div class="actions">
+                                <form action="/listings/requests/<%= listing._id %>/approve" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn accept-btn">Accept</button>
+                                </form>
+                                 <form action="/listings/requests/<%= listing._id %>/reject" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn reject-btn">Reject</button>
+                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
             </div>
-            <div class="listing-details">
-                <h3><%= listing.title %></h3>
-                <p class="location"><strong>Location:</strong> <%= listing.location%></p>
-                <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
-                <p class="price"><strong>Price:</strong> <%= listing.price%></p>
-                <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
-                <div>
-                    <button type="submit">Accept</button>
-                    <button type="submit">Reject</button>
+        <% } else { %>
+            <p>No pending listings at the moment.</p>
+        <% } %>
+    </section>
+
+    <hr> <section id="approved" class="approved-listings-section">
+        <h2>
+            Approved Listings:
+            <a href="#top" class="back-to-top-link">↑Back to top</a>
+        </h2>
+        <% if (approvedListings && approvedListings.length > 0) { %>
+           <div class="listings-grid">
+                <% approvedListings.forEach(listing => { %>
+                <div class="listing-card">
+                    <div class="image-container">
+                        <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+                    </div>
+                    <div class="listing-details">
+                        <h3><%= listing.title %></h3>
+                        <p class="location"><strong>Location:</strong> <%= listing.location%></p>
+                        <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
+                        <p class="price"><strong>Price:</strong> <%= listing.price%></p>
+                        <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    <% }) %>
+                <% }) %>
+           </div>
+        <% } else { %>
+            <p>No approved Listings yet.</p>
+        <% } %>
+    </section>
+
+     <hr> <section id="rejected" class="rejected-listings-section">
+        <h2>
+            Rejected Listings:
+            <a href="#top" class="back-to-top-link">↑Back to top</a>
+        </h2>
+        <% if (rejectedListings && rejectedListings.length > 0) { %>
+           <div class="listings-grid">
+                <% rejectedListings.forEach(listing => { %>
+                <div class="listing-card">
+                    <div class="image-container">
+                        <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+                    </div>
+                    <div class="listing-details">
+                        <h3><%= listing.title %></h3>
+                        <p class="location"><strong>Location:</strong> <%= listing.location%></p>
+                        <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
+                        <p class="price"><strong>Price:</strong> <%= listing.price%></p>
+                        <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                    </div>
+                </div>
+                <% }) %>
+           </div>
+        <% } else { %>
+            <p>No rejected Listings yet.</p>
+        <% } %>
+    </section>
 </div>
 
 <%- include('../partials/footer.ejs') %>
 
 <style>
-    .listings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+
+.quick-nav {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.quick-nav a {
+    display: inline-block;
+    margin: 0 15px;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.quick-nav a:hover {
+    background-color: #e2e6ea;
+}
+
+.back-to-top-link {
+    margin-left: 15px;
+    font-size: 0.75em;
+    color: #007bff;
+    text-decoration: none;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+.back-to-top-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.requests-page-container {
     padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section {
+    margin-bottom: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+section:first-of-type {
+    border-top: none;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+h2 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.listings-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 20px;
+padding: 20px 0;
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.accept-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.accept-btn:hover {
+    background-color: #218838;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
 }
 
 .listing-card {
@@ -41,6 +209,7 @@
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    padding: 20px 0;
 }
 
 .image-container {
