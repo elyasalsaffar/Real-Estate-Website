@@ -10,6 +10,24 @@ const getAllListings = async (req, res) => {
     }
 };
 
+const editListringForm = async (req, res) => {
+    const listing = await Listing.findById(req.params.id)
+    res.render('./listings/edit', { listing})
+}; 
+
+const updateListing = async (req, res) => {
+    await Listing.findByIdAndUpdate(req.params.id, req.body)
+    res.redirect('/users/' + req.session.user._id)
+}
+
+const deleteListing = async (req, res) => {
+    await Listing.findByIdAndDelete(req.params.id)
+    res.redirect('/users/' + req.session.user._id)
+}
+
 module.exports ={
-    getAllListings
+    getAllListings, 
+    editListringForm,
+    updateListing, 
+    deleteListing
 }

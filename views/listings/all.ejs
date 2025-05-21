@@ -2,11 +2,17 @@
 
 <h2>All Real Estates</h2>
 <ul>
-  <% listings.forEach(listing => { %>
-  <li>
-    <a href="/listings/<%= listing._id %>"><%= listing.title %></a>
-  </li>
-  <% }) %>
+  <% if (Array.isArray(listings)) { %>
+    <% listings.forEach(listing => { %>
+      <% if (listing && listing._id && listing.title) { %>
+        <li>
+          <a href="/listings/<%= listing._id %>"><%= listing.title %></a>
+        </li>
+      <% } %>
+    <% }) %>
+  <% } else { %>
+    <li>No listings available.</li>
+  <% } %>
 </ul>
 
 <%- include('../partials/footer.ejs') %>

@@ -4,14 +4,24 @@
 <img src="<%= user.picture %>" alt="Profile Picture" width="150">
 
 <div>
-    <a href=<%= `/auth/${user._id}/update-password` %>>Update Password</a>
+    <a href="<%= `/auth/${user._id}/update-password` %>">Update Password</a>
 </div>
 
-<h3>Listings:</h3>
+<h3>Your Listings:</h3>
 <ul>
-    <% user.listings.forEach(listing => { %>
-        <li><a href="/listing/<%= listings._id %>"><%= listing.title %></a></li>
-    <% }) %>
+  <% user.listings.forEach(listing => { %>
+    <li>
+      <strong><%= listing.title %></strong>
+      <div><%= listing.description %></div>
+      <div>Price: $<%= listing.price %></div>
+      <div>Status: <%= listing.status %></div>
+      <a href="/listings/<%= listing._id %>/edit">Edit</a>
+      <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  <% }) %>
 </ul>
+
 
 <%- include('../partials/footer.ejs') %>
