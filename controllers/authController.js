@@ -17,6 +17,7 @@ const registerUser = async (req, res) => {
             first: req.body.first,
             last: req.body.last,
             picture: req.body.picture,
+            isAdmin: req.body.isAdmin,
             listings: []
         });
         res.render('./auth/thanks.ejs', { user });

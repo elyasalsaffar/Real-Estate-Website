@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real Estate</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <nav>
-
         <% if (!user) { %>
             <a href="/auth/sign-up">Sign Up</a>
             <a href="/auth/sign-in">Sign In</a>
         <% } else { %>
+            <a href="/listings/all">Home Page</a>
+            <% if (user.isAdmin) { %>
+            <a href="/listings/requests">View Requests</a>
+            <% } %>
             <a href="/users/<%= user._id %>">My Profile</a>
             <a href="/auth/sign-out">Sign Out</a>
-            <a href="/listings/all">View All</a>
         <% } %>
     </nav>
 <main>
