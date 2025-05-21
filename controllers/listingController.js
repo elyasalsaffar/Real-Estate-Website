@@ -48,16 +48,6 @@ const getSingleListing = async (req, res) => {
     }
 };
 
-const updateIsApprovedById = async (req, res) => { //to be continued
-    try {
-        const listing = await listing.findByIdAndUpdate(req.params.id, req.body, {
-            isApproved: true
-        })
-    } catch (error) {
-        console.error('An error has occurred updating a requests Approve/ Reject status');
-    }
-};
-
 const getAllRequestListings = async (req, res) => {
     try {
         const listings = await Listing.find({ isApproved: true });
@@ -67,11 +57,24 @@ const getAllRequestListings = async (req, res) => {
     }
 };
 
+const createListing = async (req, res) => {
+    try {
+        const user = await User.findById(req.body.author);
+        const listing = await Listing.create(req.body);
+        user.listings.push(listing._id);
+        user.save();
+        res.redirect(`/listings/${listing._id}`);
+    } catch (error) {
+        console.error('An error has occurred adding a listing');
+    }
+};
+
 module.exports = {
     getAllListings,
     getSingleListing,
     getAllRequests,
     getAllRequestListings,
     approveListing,
-    rejectListing
+    rejectListing,
+    createListing
 }
