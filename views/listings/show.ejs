@@ -1,0 +1,27 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="single-listing">
+    <h2><%= listing.title %></h2>
+        <div class="image-container">
+            <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+        </div>
+        <div class="listing-details">
+            <h3><%= listing.title %></h3>
+            <p class="description"><strong>Description:</strong> <%= listing.description%></p>
+            <p class="location"><strong>Location:</strong> <%= listing.location%></p>
+            <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
+            <p class="price"><strong>Price:</strong> <%= listing.price%></p>
+            <p class="propertyType"><strong>Property Type:</strong> <%= listing.propertyType%></p>
+            <p class="bedrooms"><strong>Bedrooms:</strong> <%= listing.bedrooms%></p>
+            <p class="bathrooms"><strong>Bathrooms:</strong> <%= listing.bathrooms%></p>
+            <p class="status"><strong>Status:</strong> <%= listing.status %></p>
+            <% if (listing.isForSale) { %>
+                <p><strong>Purpose:</strong> For Sale</p>
+                <% } else { %>
+                <p><strong>Purpose:</strong> For Rent</p>
+            <% } %>
+        </div>
+        <a href="/listings/all" class="back-button">Back to All Listings</a>
+</div>
+
+<%- include('../partials/footer.ejs') %>
