@@ -1,45 +1,54 @@
 <%- include('../partials/header.ejs') %>
 
 <h2>Find a Real Estate Suitable to Your Lifestyle!</h2>
-<div class="listings-grid">
+
+<% if (Array.isArray(listings) && listings.length > 0) { %>
+  <div class="listings-grid">
     <% listings.forEach(listing => { %>
-        <% if (listing.isApproved) { %>
-        <div class="listing-card">
-            <div class="image-container">
-                <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
-            </div>
-            
-            <div class="listing-details">
-                <h3><%= listing.title %></h3>
-                <p class="location"><strong>Location:</strong> <%= listing.location%></p>
-                <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
-                <p class="price"><strong>Price:</strong> <%= listing.price%></p>
-                <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
-            </div>
+      <% if (listing && listing.isApproved) { %>
+      <div class="listing-card">
+        <div class="image-container">
+          <% if (listing.images && listing.images.length > 0) { %>
+            <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+          <% } else { %>
+            <div class="no-image">No image available</div>
+          <% } %>
         </div>
-        <% } %>
+
+        <div class="listing-details">
+          <h3><%= listing.title %></h3>
+          <p class="location"><strong>Location:</strong> <%= listing.location %></p>
+          <p class="area-size"><strong>Area:</strong> <%= listing.areaSize %> sq ft</p>
+          <p class="price"><strong>Price:</strong> $<%= listing.price.toLocaleString() %></p>
+          <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+        </div>
+      </div>
+      <% } %>
     <% }) %>
-</div>
+  </div>
+<% } else { %>
+  <p>No listings available at the moment.</p>
+<% } %>
 
 <%- include('../partials/footer.ejs') %>
 
 <style>
-    .listings-grid {
+  .listings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
-}
+  }
 
-.listing-card {
+  .listing-card {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-}
+  }
 
-.image-container {
+  .image-container {
     width: 100%;
     height: 200px;
     overflow: hidden;
@@ -47,52 +56,52 @@
     align-items: center;
     justify-content: center;
     background-color: #f7f7f7;
-}
+  }
 
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-.image-container .no-image {
-  font-style: italic;
-  color: #777;
-}
+  .image-container .no-image {
+    font-style: italic;
+    color: #777;
+  }
 
-.listing-details {
-  padding: 15px;
-}
+  .listing-details {
+    padding: 15px;
+  }
 
-.listing-details h3 {
-  margin-top: 0;
-  margin-bottom: 5px;
-  font-size: 1.2em;
-}
+  .listing-details h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+  }
 
-.listing-details p {
-  margin-bottom: 8px;
-  font-size: 0.9em;
-  color: #555;
-}
+  .listing-details p {
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #555;
+  }
 
-.listing-details strong {
-  font-weight: bold;
-  margin-right: 5px;
-}
+  .listing-details strong {
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
-.listing-details .view-details {
-  display: inline-block;
-  padding: 8px 15px;
-  text-decoration: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease;
-}
+  .listing-details .view-details {
+    display: inline-block;
+    padding: 8px 15px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+  }
 
-.listing-details .view-details:hover {
-  background-color: #0056b3;
-}
+  .listing-details .view-details:hover {
+    background-color: #0056b3;
+  }
 </style>
