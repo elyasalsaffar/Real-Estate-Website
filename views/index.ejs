@@ -3,12 +3,9 @@
 <h1>Welcome to the Real Estate Website!</h1>
 
 <% if (!user) { %>
-<p>Sign in or sign up to get started.</p>
-
-<%- include
-
-<% } else { %>
-<p>Your are signed in</p>
-<% } %>
-
+    <p>Sign in or sign up to get started.</p>
 <%- include('./partials/footer.ejs') %>
+<% } else { %>
+    <p>You are signed in.</p>
+<%- include('./partials/footer.ejs') %>
+<% } %>
