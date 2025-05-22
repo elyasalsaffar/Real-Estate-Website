@@ -1,3 +1,108 @@
+public/style.css
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 30px;
+}
+
+h1, h2, h3 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #007bff;
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #0056b3;
+}
+
+/* Forms */
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form textarea,
+form select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Listings Grid (for all.ejs, index.ejs, profile.ejs) */
 .listings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -11,6 +116,8 @@
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
 }
 
 .image-container {
@@ -24,48 +131,186 @@
 }
 
 .image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.image-container .no-image {
-  font-style: italic;
-  color: #777;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .listing-details {
-  padding: 15px;
+    padding: 15px;
+    flex-grow: 1; /* Allow details section to grow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .listing-details h3 {
-  margin-top: 0;
-  margin-bottom: 5px;
-  font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    text-align: left; /* Align text left within card */
 }
 
 .listing-details p {
-  margin-bottom: 8px;
-  font-size: 0.9em;
-  color: #555;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #555;
 }
 
 .listing-details strong {
-  font-weight: bold;
-  margin-right: 5px;
+    font-weight: bold;
+    margin-right: 5px;
 }
 
 .listing-details .view-details {
-  display: inline-block;
-  padding: 8px 15px;
-  text-decoration: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease;
+    display: inline-block;
+    padding: 8px 15px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    align-self: flex-start; /* Align button to the start */
+    margin-top: 10px;
 }
 
 .listing-details .view-details:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
+}
+
+/* Specific styles for single listing (show.ejs) */
+.single-listing {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.single-listing h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.single-listing .image-container {
+    height: 400px; /* Larger image for single view */
+    margin-bottom: 20px;
+}
+
+.single-listing .listing-details {
+    padding: 0; /* Remove padding if added by parent */
+    display: block; /* Override flex for single view */
+}
+
+.single-listing .listing-details p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.single-listing .back-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.single-listing .back-button:hover {
+    background-color: #5a6268;
+}
+
+/* Requests Page Specific CSS (requests.ejs) */
+.requests-page-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.quick-nav {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-bottom: 30px;
+}
+
+.quick-nav a {
+    display: inline-block;
+    margin: 0 15px;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.quick-nav a:hover {
+    background-color: #e2e6ea;
+}
+
+.back-to-top-link {
+    margin-left: 15px;
+    font-size: 0.75em;
+    color: #007bff;
+    text-decoration: none;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+.back-to-top-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+section {
+    margin-bottom: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+section:first-of-type {
+    border-top: none;
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.accept-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.accept-btn:hover {
+    background-color: #218838;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
 }

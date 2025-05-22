@@ -20,7 +20,12 @@ const registerUser = async (req, res) => {
             isAdmin: req.body.isAdmin,
             listings: []
         });
-        res.render('./auth/thanks.ejs', { user });
+        req.session.user = {
+            email: user.email,
+            _id: user._id,
+            isAdmin: user.isAdmin
+        }
+        res.redirect('/listings/all');
     } catch (error) {
         console.error('An error has occurred registering a user!', error.message);
     }
@@ -41,9 +46,10 @@ const signInUser = async (req, res) => {
         }
         req.session.user = {
             email: user.email,
-            _id: user._id
+            _id: user._id,
+            isAdmin: user.isAdmin
         }
-        res.redirect(`/users/${user._id}`);
+        res.redirect('/listings/all');
     } catch (error) {
         console.error('An error occurred signing in a user!', error.message);   
     }   

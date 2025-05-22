@@ -30,14 +30,33 @@ app.use((req, res, next) => {
     next();
 });
 
+const requireAuth = (req, res, next) => {
+  if (req.session.user) {
+    res.locals.loggedInUserId = req.session.user._id;
+    next();
+  } else {
+    res.redirect('/auth/sign-in');
+  }
+};
+
+app.get('/listings/new', requireAuth, (req, res) => {
+  res.render('./listings/new.ejs', { user: { _id: res.locals.loggedInUserId } });
+});
+
 app.use('/auth', authRouter);
 
 app.use('/users', userRouter);
 
 app.use('/listings', listingRouter);
 
-app.get('/', (req, res) => {
-  res.render('index.ejs')
+app.get('/', async (req, res) => {
+  try {
+    const Listing = require('./models/Listing.js');
+    const listings = await Listing.find({ isApproved: true });
+    res.render('index.ejs', { listings });
+  } catch (error) {
+    console.error('An error occurred getting listings for homepage', error.message);
+  }
 });
 
 app.listen(PORT, () => {

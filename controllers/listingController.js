@@ -48,15 +48,6 @@ const getSingleListing = async (req, res) => {
     }
 };
 
-const getAllRequestListings = async (req, res) => {
-    try {
-        const listings = await Listing.find({ isApproved: true });
-        res.render('./listings/requestsList.ejs', { listings });
-    } catch (error) {
-        console.error('An error has occurred getting requests lists');
-    }
-};
-
 const createListing = async (req, res) => {
     try {
         const user = await User.findById(req.body.author);
@@ -73,7 +64,6 @@ module.exports = {
     getAllListings,
     getSingleListing,
     getAllRequests,
-    getAllRequestListings,
     approveListing,
     rejectListing,
     createListing

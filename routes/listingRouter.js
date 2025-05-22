@@ -11,13 +11,7 @@ router.post('/requests/:id/approve', listingController.approveListing);
 
 router.post('/requests/:id/reject', listingController.rejectListing);
 
-router.get('/requestsList/:id', listingController.getAllRequestListings);
-
 router.post('/', listingController.createListing);
-
-router.get('/new', (req, res) => {
-    res.render('./listings/new.ejs');
-});
 
 router.get('/:id', listingController.getSingleListing);
 

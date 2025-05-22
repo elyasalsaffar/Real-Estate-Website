@@ -4,9 +4,105 @@
 
 <% if (!user) { %>
 <p>Sign in or sign up to get started.</p>
-
 <% } else { %>
 <p>Your are signed in</p>
 <% } %>
 
+<h2>Available Listings</h2>
+<div class="listings-grid">
+    <% if (listings && listings.length > 0) { %>
+    <% listings.forEach(listing => { %>
+        <div class="listing-card">
+            <div class="image-container">
+                <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+            </div>
+            <div class="listing-details">
+                <h3><%= listing.title %></h3>
+                <p class="location"><strong>Location:</strong> <%= listing.location%></p>
+                <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
+                <p class="price"><strong>Price:</strong> <%= listing.price%></p>
+                <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+            </div>
+        </div>
+    <% }) %>
+    <% } else { %>
+        <p>No listings available at the moment.</p>
+    <% } %>
+</div>
+
 <%- include('./partials/footer.ejs') %>
+
+
+<style>
+    .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.listing-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-container .no-image {
+  font-style: italic;
+  color: #777;
+}
+
+.listing-details {
+  padding: 15px;
+}
+
+.listing-details h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+}
+
+.listing-details p {
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.listing-details strong {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.listing-details .view-details {
+  display: inline-block;
+  padding: 8px 15px;
+  text-decoration: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.listing-details .view-details:hover {
+  background-color: #0056b3;
+}
+</style>

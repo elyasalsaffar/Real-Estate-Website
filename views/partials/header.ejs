@@ -11,11 +11,12 @@
         <% if (!user) { %>
             <a href="/auth/sign-up">Sign Up</a>
             <a href="/auth/sign-in">Sign In</a>
+            <a href="/listings/all">View All Listings</a>
         <% } else { %>
             <a href="/listings/all">Home Page</a>
-            <% if (user.isAdmin) { %>
-            <a href="/listings/requests">View Requests</a>
-            <% } %>
+        <% if (user.isAdmin) { %>
+             <a href="/listings/requests">View Requests</a>
+        <% } %>
             <a href="/listings/new">Add Listing</a>
             <a href="/users/<%= user._id %>">My Profile</a>
             <a href="/auth/sign-out">Sign Out</a>
