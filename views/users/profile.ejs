@@ -7,11 +7,6 @@
     <a href=<%= `/auth/${user._id}/update-password` %>>Update Password</a>
 </div>
 
-<h3>Listings:</h3>
-<ul>
-    <% user.listings.forEach(listing => { %>
-        <li><a href="/listing/<%= listings._id %>"><%= listing.title %></a></li>
-    <% }) %>
-</ul>
+
 
 <%- include('../partials/footer.ejs') %>
