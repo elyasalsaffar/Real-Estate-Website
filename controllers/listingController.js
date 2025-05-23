@@ -1,5 +1,6 @@
 const User = require('../models/User.js');
 const Listing = require('../models/Listing.js');
+const Comment = require('../models/Comment.js');
 
 const getAllListings = async (req, res) => {
     try {
@@ -41,8 +42,8 @@ const rejectListing = async (req, res) => {
 
 const getSingleListing = async (req, res) => {
     try {
-        const listing = await Listing.findById(req.params.id);
-        res.render('./listings/show.ejs', { listing });
+        const listing = await Listing.findById(req.params.id).populate({ path: 'comments', populate: { path: 'author', select: 'first last' } });
+        res.render('./listings/show.ejs', { listing, user: req.session.user });
     } catch (error) {
         console.error('An error occurred getting a single listing!', error.message);
     }

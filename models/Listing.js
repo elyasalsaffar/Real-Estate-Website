@@ -11,13 +11,17 @@ const listingSchema = new mongoose.Schema({
     location: { type: String, required: true },
     images: { type: [String], required: true },
     price: { type: Number, required: true },
-    status: { type: String, required: true, enum: ['available', 'sold', 'pending'] }, //needed? we can also add isFurnished
-    isApproved: { type: Boolean, required: true },
+    status: { type: String, enum: ['available', 'sold', 'pending'], default: 'available' }, //needed? we can also add isFurnished
+    isApproved: { type: Boolean },
     author: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', 
         required: true 
-    }
+    },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
 },
 { timestamps: true }
 );

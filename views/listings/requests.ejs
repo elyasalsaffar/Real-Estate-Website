@@ -28,10 +28,10 @@
                             <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
                             <div class="actions">
                                 <form action="/listings/requests/<%= listing._id %>/approve" method="POST" style="display:inline;">
-                                    <button type="submit" class="btns accept-btn">Accept</button>
+                                    <button type="submit" class="btn accept-btn">Accept</button>
                                 </form>
                                  <form action="/listings/requests/<%= listing._id %>/reject" method="POST" style="display:inline;">
-                                    <button type="submit" class="btns reject-btn">Reject</button>
+                                    <button type="submit" class="btn reject-btn">Reject</button>
                                  </form>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ padding: 20px 0;
     margin-top: 15px;
 }
 
-.btns {
+.btn {
     padding: 8px 15px;
     border: none;
     border-radius: 5px;

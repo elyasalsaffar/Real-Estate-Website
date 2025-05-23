@@ -22,6 +22,100 @@
             <% } %>
         </div>
         <a href="/listings/all" class="back-button">Back to All Listings</a>
+
+        <% if (user) { %>
+            <div class="comment-section">
+                <h3>Add a Comment</h3>
+                <form action="/listings/<%= listing._id %>/comments" method="POST">
+                    <textarea name="comment" rows="4" placeholder="Your Comment..." required></textarea>
+                    <button type="submit">Submit Comment</button>
+                </form>
+            </div>
+        <% } %>
+
+        <div class="existing-comments">
+            <h3>Comments</h3>
+            <% if (listing.comments && listing.comments.length > 0) { %>
+                <% listing.comments.forEach(comment => { %>
+                    <div class="comment-card">
+                        <p class="comment-author"><strong><%= comment.author.first %> <%= comment.author.last %>:</strong></p>
+                        <p class="comment=text"><%= comment.comment %></p>
+                        <p class="comment-date"><small><%= comment.createdAt.toLocaleString() %></small></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No comments yet. Be the first to comment!</p>
+            <% } %>
+        </div>
 </div>
 
 <%- include('../partials/footer.ejs') %>
+
+<style>
+    .comment-section {
+        margin-top: 30px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+
+    .comment-section h3, .existing-comments h3 {
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        color: #333;
+    }
+
+    .comment-section textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .comment-section button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+    }
+
+    .comment-section button:hover {
+        background-color: #218838;
+    }
+
+    .existing-comments {
+        margin-top: 30px;
+    }
+
+    .comment-card {
+        border: 1px solid #eee;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .comment-card .comment-author {
+        margin-bottom: 5px;
+        font-size: 1.1em;
+        color: #007bff;
+    }
+
+    .comment-card .comment-text {
+        margin-bottom: 8px;
+        line-height: 1.5;
+        color: #555;
+    }
+
+    .comment-card .comment-date {
+        font-size: 0.8em;
+        color: #888;
+        text-align: right;
+    }
+</style>

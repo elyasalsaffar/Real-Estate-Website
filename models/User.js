@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     listings: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Listing' 
+    }],
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
     }]
 },
 { timestamps: true }
