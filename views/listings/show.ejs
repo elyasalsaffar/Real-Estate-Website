@@ -3,7 +3,10 @@
 <div class="single-listing">
     <h2><%= listing.title %></h2>
         <div class="image-container">
-            <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+            <% listing.images.forEach(image => { %>
+                <img src="<%= image %>" alt="<%= listing.title %>">
+            <% }) %>
+            
         </div>
         <div class="listing-details">
             <h3><%= listing.title %></h3>
@@ -118,4 +121,52 @@
         color: #888;
         text-align: right;
     }
+
+    .image-container {
+        display: flex; /* Essential for horizontal layout */
+        overflow-x: auto; /* Enables horizontal scrolling */
+        gap: 15px; /* Space between images */
+
+        /* Pseudo-elements for centered snapping - remove original padding */
+        padding-bottom: 15px; /* Keep for scrollbar visibility */
+        
+        margin-bottom: 30px;
+        scroll-snap-type: x mandatory;
+        justify-content: flex-start; /* Important for pseudo-element trick */
+        align-items: center; /* Vertically center images if heights vary */
+        height: 350px; /* Consistent height for the entire scroll container */
+
+        /* Hiding scrollbar */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .image-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Pseudo-elements to create padding for first/last image centering */
+    .image-container::before,
+    .image-container::after {
+        content: '';
+        flex-shrink: 0;
+        /* Calculation: 50% of container width - half of image width - half of gap */
+        /* Assuming image height is 350px, so effective width is also ~350px if square */
+        width: calc(50% - (350px / 2) - (15px / 2));
+        height: 1px; /* Minimal height */
+        pointer-events: none; /* Make them unclickable */
+        scroll-snap-align: none; /* Prevent pseudo-elements from snapping */
+    }
+
+    .image-container img {
+        width: auto; /* Let images determine their width based on height and aspect ratio */
+        height: 350px; /* Consistent height for all images */
+        object-fit: cover; /* How images fit into their given dimensions */
+        border-radius: 8px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        flex-shrink: 0; /* Prevents images from shrinking */
+        scroll-snap-align: center; /* Makes each image snap to the center */
+        max-width: 90vw; /* Ensures images don't overflow viewport on small screens */
+    }
+
 </style>

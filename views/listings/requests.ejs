@@ -28,10 +28,10 @@
                             <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
                             <div class="actions">
                                 <form action="/listings/requests/<%= listing._id %>/approve" method="POST" style="display:inline;">
-                                    <button type="submit" class="btn accept-btn">Accept</button>
+                                    <button type="submit" class="request-btn request-btn-accept">Accept</button>
                                 </form>
                                  <form action="/listings/requests/<%= listing._id %>/reject" method="POST" style="display:inline;">
-                                    <button type="submit" class="btn reject-btn">Reject</button>
+                                    <button type="submit" class="request-btn request-btn-reject">Reject</button>
                                  </form>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ padding: 20px 0;
     margin-top: 15px;
 }
 
-.btn {
+.actions form .request-btn {
     padding: 8px 15px;
     border: none;
     border-radius: 5px;
@@ -191,21 +191,21 @@ padding: 20px 0;
     transition: background-color 0.3s ease;
 }
 
-.accept-btn {
+.actions form .request-btn-accept {
     background-color: #28a745;
     color: white;
 }
 
-.accept-btn:hover {
+.actions form .request-btn-accept:hover {
     background-color: #218838;
 }
 
-.reject-btn {
+.actions form .request-btn-reject {
     background-color: #dc3545;
     color: white;
 }
 
-.reject-btn:hover {
+.actions form .request-btn-reject:hover {
     background-color: #c82333;
 }
 
