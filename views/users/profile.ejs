@@ -1,10 +1,83 @@
-<%- include('../partials/header.ejs') %>
+<%- include('../partials/header') %>
 
-<h2><%= user.first %> <% user.last %>'s Profile</h2>
+<h1>Welcome, <%= user.first %> <%= user.last %> To Your Profile!</h1>
 <img src="<%= user.picture %>" alt="Profile Picture" width="150">
 
 <div>
-    <a href=<%= `/auth/${user._id}/update-password` %>>Update Password</a>
+  <a href="<%= `/auth/${user._id}/update-password` %>">Update Password</a>
 </div>
 
-<%- include('../partials/footer.ejs') %>
+<h2>Your Listings</h2>
+
+<% if (listings && listings.length > 0) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% listings.forEach(listing => { %>
+        <tr>
+          <td><%= listing.title %></td>
+          <td><%= listing.status %></td>
+          <td>
+            <% if (user.isAdmin && listing.status === 'pending') { %>
+              <a href="/listings/<%= listing._id %>/approve">Approve</a>
+              <a href="/listings/<%= listing._id %>/reject">Reject</a>
+            <% } else { %>
+              <span>Action Taken</span>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>You have no listings yet.</p>
+<% } %>
+
+<%- include('../partials/footer') %>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  img {
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>

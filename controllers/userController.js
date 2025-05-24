@@ -10,7 +10,7 @@ const getUserById = async (req, res) => {
             isAdmin: user.isAdmin,
             listings: user.listings
         };
-        res.render('./users/profile.ejs', { user: data });
+        res.render('./users/profile.ejs', { user: data, listings: user.listings });
     } catch (error) {
         console.error('An error has occurred finding a user!', error.message);
     }
