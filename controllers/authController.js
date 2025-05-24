@@ -1,84 +1,103 @@
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const User = require('../models/User.js');
 
-const registerUser = async (req, res) => {
-    try {
-        const userInDatabase = await User.findOne({ email: req.body.email });
-        if (userInDatabase) {
-            return res.send('Username already taken!');
-        }
-        if (req.body.password !== req.body.confirmPassword) {
-            return res.send('Password and Confirm Password must match');
-        }
-        const hashedPassword = bcrypt.hashSync(req.body.password, 12);
-        const user = await User.create({
-            email: req.body.email,
-            password: hashedPassword,
-            first: req.body.first,
-            last: req.body.last,
-            picture: req.body.picture,
-            isAdmin: req.body.isAdmin,
-            listings: []
-        });
-        res.render('./auth/thanks.ejs', { user });
-    } catch (error) {
-        console.error('An error has occurred registering a user!', error.message);
+// Register user
+exports.registerUser = async (req, res) => {
+  try {
+    const { first, last, email, password, confirmPassword, picture } = req.body;
+
+    if (password !== confirmPassword) {
+      return res.status(400).render('auth/sign-up.ejs', { error: 'Passwords do not match' });
     }
-};
 
-const signInUser = async (req, res) => {
-    try {
-        const user = await User.findOne({ email: req.body.email });
-        if (!user) {
-            return res.send('No user has been registered with that email. Please sign up!');
-        }
-        const validPassword = bcrypt.compareSync(
-            req.body.password,
-            user.password
-        )
-        if (!validPassword) {
-            return res.send('Incorrect password! Please try again.');
-        }
-        req.session.user = {
-            email: user.email,
-            _id: user._id
-        }
-        res.redirect(`/users/${user._id}`);
-    } catch (error) {
-        console.error('An error occurred signing in a user!', error.message);   
-    }   
-};
-
-const signUserOut = (req, res) => {
-    try {
-        req.session.destroy();
-        res.redirect('/');
-    } catch (error) {
-        console.error('An error has occurred signing out a user!', error.message);
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).render('auth/sign-up.ejs', { error: 'Email already registered' });
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+      first,
+      last,
+      email,
+      password: hashedPassword,
+      picture,
+      role: 'user'
+    });
+
+    await user.save();
+    res.redirect('/auth/sign-in');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 };
 
-const updatePassword = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (!user) {
-            return res.send('No user with that ID exists!');
-        }
-        if (req.body.newPassword !== req.body.confirmPassword) {
-            return res.send('Password and Confirm Password must match');
-        }
-        const hashedPassword = bcrypt.hashSync(req.body.newPassword, 12);
-        user.password = hashedPassword;
-        await user.save();
-        res.render('./auth/confirm.ejs', { user });
-    } catch (error) {
-        console.error('An error occurred updating a users\'s password!', error.message);
+// Sign in user
+exports.signInUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).render('auth/sign-in.ejs', { error: 'Invalid email or password' });
     }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).render('auth/sign-in.ejs', { error: 'Invalid email or password' });
+    }
+
+    // Save user info in session (excluding password)
+    req.session.user = {
+      _id: user._id,
+      first: user.first,
+      last: user.last,
+      email: user.email,
+      role: user.role,
+    };
+
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 };
 
-module.exports = {
-    registerUser,
-    signInUser,
-    signUserOut,
-    updatePassword
+// Sign out user
+exports.signUserOut = (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Could not log out');
+    }
+    res.redirect('/');
+  });
+};
+
+// Show update password form
+exports.showUpdatePasswordForm = (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/auth/sign-in');
+  }
+  res.render('auth/update-password.ejs', { user: req.session.user });
+};
+
+// Update password
+exports.updatePassword = async (req, res) => {
+  try {
+    const { newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send('Passwords do not match');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.findByIdAndUpdate(req.params.id, { password: hashedPassword });
+
+    res.render('auth/confirm-password-update.ejs', { user: req.session.user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 };

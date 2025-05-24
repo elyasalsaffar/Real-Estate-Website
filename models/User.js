@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     picture: { type: String },
     isAdmin: { type: Boolean },
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
     listings: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Listing' 

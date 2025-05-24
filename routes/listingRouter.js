@@ -1,24 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const listingController = require('../controllers/listingController.js');
+const Listing = require('../models/Listing.js'); // Needed for admin routes
 
-// View all approved listings
+// 🔐 Admin middleware to check if user is an admin
+function isAdmin(req, res, next) {
+  if (!req.session.user || req.session.user.role !== 'admin') {
+    return res.status(403).send('Access Denied');
+  }
+  next();
+}
+
+// ✅ View all approved listings
 router.get('/all', listingController.getAllListings);
 
-// Admin request routes
-router.get('/requests', listingController.getAllRequests);
-router.post('/requests/:id/approve', listingController.approveListing);
-router.post('/requests/:id/reject', listingController.rejectListing);
-router.get('/requestsList', listingController.getAllRequestListings); // fixed path, removed :id
-
-// CRUD routes
+// ✅ Create a new listing
 router.post('/create', listingController.createListing);
+
+// ✅ Edit + Update listing
 router.get('/:id/edit', listingController.editListringForm);
 router.put('/:id', listingController.updateListing);
+
+// ✅ Delete listing
 router.delete('/:id', listingController.deleteListing);
 
-// View one listing 
+// ✅ View single listing
 router.get('/:id', listingController.getSingleListing);
 
-module.exports = router;
+// ✅ Admin request routes (View & Handle Pending Listings)
+router.get('/requests', isAdmin, listingController.getAllRequests);
+router.post('/requests/:id/approve', isAdmin, listingController.approveListing);
+router.post('/requests/:id/reject', isAdmin, listingController.rejectListing);
 
+// ✅ (Optional) Request Listing View (for Admin)
+router.get('/requestsList', isAdmin, listingController.getAllRequestListings);
+
+// You can delete or keep only one form.
+
+module.exports = router;

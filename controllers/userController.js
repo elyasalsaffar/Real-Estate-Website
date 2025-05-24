@@ -1,25 +1,20 @@
-const User = require('../models/User.js');
+const User = require('../models/User');
 
 const getUserById = async (req, res) => {
-    try {
-        if (req.session.user._id !== req.params.id) {
-            return res.status(403).send('Unauthorized')
-        }
-        const user = await User.findById(req.params.id).populate('listings');
-        const data = {
-            first: user.first,
-            last: user.last,
-            picture: user.picture,
-            isAdmin: user.isAdmin,
-            listings: user.listings
-        };
-        res.render('./users/profile.ejs', { user: data });
-    } catch (error) {
-        console.error('An error has occurred finding a user!', error.message);
-        res.status(500).send('An error has occured finding a user!')
+  if (!req.session.user || req.session.user._id !== req.params.id) {
+    return res.status(403).send('Unauthorized');
+  }
+  try {
+    const user = await User.findById(req.params.id).populate('listings');
+    if (!user) {
+      return res.status(404).send('User not found');
     }
+
+    res.render('users/profile', { user });
+  } catch (error) {
+    console.error('Error finding user:', error);
+    res.status(500).send('Server error');
+  }
 };
 
-module.exports = {
-    getUserById
-}
+module.exports = { getUserById };
