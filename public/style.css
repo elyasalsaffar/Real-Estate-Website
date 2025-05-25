@@ -371,12 +371,140 @@ section:first-of-type {
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
-.signed-in-message a {
-    color: #002F6C;
+
+/* About Us Page Specific Styles */
+.section-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.section-subtitle {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #0055a5;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    text-align: left;
+    border-bottom: 3px solid #0055a5;
+    padding-bottom: 5px;
+}
+
+.info-paragraph {
+    font-size: 1.1em;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #0072CE;
+    font-weight: 700;
+    background-color: #e0f0ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.services-list,
+.benefits {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+
+.service-item,
+.benefit-item {
+    font-size: 1.05em;
+    margin-bottom: 12px;
+    padding-left: 30px;
+    position: relative;
+    color: #222;
+}
+
+
+.benefit-item strong {
+    color: #0055a5;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.contact-link {
+    font-size: 1.1em;
+    color: #0072CE;
+    text-decoration: none;
+    border: 2px solid #0072CE;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+}
+
+.contact-link:hover,
+.contact-link:focus {
+    background-color: #0072CE;
+    color: white;
+    outline: none;
+}
+
+.tagline {
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #003366;
+    margin-top: 50px;
+    padding: 15px 10px;
+    border-top: 2px solid #0055a5;
+    letter-spacing: 0.8px;
+}
+
+/* Contact Us Page Specific Styles */
+main > h1 {
+    font-size: 2.4em;
+    color: #003366;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-info {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f4f9ff;
+    border: 1px solid #cce0ff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 110, 230, 0.1);
+    font-size: 1.1em;
+    color: #003366;
+    line-height: 1.6;
+}
+
+.contact-info p {
+    margin-bottom: 18px;
+}
+
+.contact-info a {
+    color: #0072CE;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover,
+.contact-info a:focus {
+    color: #004a8f;
     text-decoration: underline;
 }
-.signed-in-message a:hover,
-.signed-in-message a:focus {
-    color: #001f4d;
-    text-decoration: none;
+.contact-info strong {
+    color: #0055a5;
 }
