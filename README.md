@@ -28,7 +28,7 @@ This project was built to practice full-stack development, RESTful routing, sess
 
 🚀 Live App
 
-🔗 [Click here to view the deployed app](https://your-deployment-url.com)
+🔗 [Click here to view the deployed app] https://real-estate-website-erps.onrender.com/
 
 🗂 [Wireframes - planned with Figma](https://www.figma.com/design/TJ0oaoZwUMc4dfEMsSsrfs/Proj2-Wireframe?node-id=0-1&t=uZ9Xy5a1lrbv45QZ-1)
 
