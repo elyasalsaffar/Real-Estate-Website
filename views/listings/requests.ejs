@@ -9,9 +9,13 @@
         <a href="#rejected">Rejected</a>
     </div>
 
-    <section id="pending" class="pending-requests-section">
-        <h2>Pending Listings:</h2>
-        <p>Please Either Accept or Reject the Listings.</p>
+    <!-- PENDING SECTION -->
+    <section id="pending" class="pending-requests-section styled-box pending-bg">
+        <div class="section-header">
+            <h2>Pending Listings</h2>
+            <a href="#top" class="back-to-top-link">Back to Top ↑</a>
+        </div>
+        <p class="AorR">Please Either Accept or Reject the Listings.</p>
 
         <% if (pendingListings && pendingListings.length > 0) { %>
             <div class="listings-grid">
@@ -27,12 +31,12 @@
                             <p class="price"><strong>Price:</strong> <%= listing.price%></p>
                             <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
                             <div class="actions">
-                                <form action="/listings/requests/<%= listing._id %>/approve" method="POST" style="display:inline;">
+                                <form action="/listings/requests/<%= listing._id %>/approve" method="POST">
                                     <button type="submit" class="request-btn request-btn-accept">Accept</button>
                                 </form>
-                                 <form action="/listings/requests/<%= listing._id %>/reject" method="POST" style="display:inline;">
+                                <form action="/listings/requests/<%= listing._id %>/reject" method="POST">
                                     <button type="submit" class="request-btn request-btn-reject">Reject</button>
-                                 </form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -43,55 +47,57 @@
         <% } %>
     </section>
 
-    <hr> <section id="approved" class="approved-listings-section">
-        <h2>
-            Approved Listings:
-            <a href="#top" class="back-to-top-link">↑Back to top</a>
-        </h2>
+    <!-- APPROVED SECTION -->
+    <section id="approved" class="approved-listings-section styled-box approved-bg">
+        <div class="section-header">
+            <h2>Approved Listings</h2>
+            <a href="#top" class="back-to-top-link">Back to Top ↑</a>
+        </div>
         <% if (approvedListings && approvedListings.length > 0) { %>
-           <div class="listings-grid">
+            <div class="listings-grid">
                 <% approvedListings.forEach(listing => { %>
-                <div class="listing-card">
-                    <div class="image-container">
-                        <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+                    <div class="listing-card">
+                        <div class="image-container">
+                            <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+                        </div>
+                        <div class="listing-details">
+                            <h3><%= listing.title %></h3>
+                            <p class="location"><strong>Location:</strong> <%= listing.location%></p>
+                            <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
+                            <p class="price"><strong>Price:</strong> <%= listing.price%></p>
+                            <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                        </div>
                     </div>
-                    <div class="listing-details">
-                        <h3><%= listing.title %></h3>
-                        <p class="location"><strong>Location:</strong> <%= listing.location%></p>
-                        <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
-                        <p class="price"><strong>Price:</strong> <%= listing.price%></p>
-                        <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
-                    </div>
-                </div>
                 <% }) %>
-           </div>
+            </div>
         <% } else { %>
             <p>No approved Listings yet.</p>
         <% } %>
     </section>
 
-     <hr> <section id="rejected" class="rejected-listings-section">
-        <h2>
-            Rejected Listings:
-            <a href="#top" class="back-to-top-link">↑Back to top</a>
-        </h2>
+    <!-- REJECTED SECTION -->
+    <section id="rejected" class="rejected-listings-section styled-box rejected-bg">
+        <div class="section-header">
+            <h2>Rejected Listings</h2>
+            <a href="#top" class="back-to-top-link">Back to Top ↑</a>
+        </div>
         <% if (rejectedListings && rejectedListings.length > 0) { %>
-           <div class="listings-grid">
+            <div class="listings-grid">
                 <% rejectedListings.forEach(listing => { %>
-                <div class="listing-card">
-                    <div class="image-container">
-                        <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+                    <div class="listing-card">
+                        <div class="image-container">
+                            <img src="<%= listing.images[0] %>" alt="<%= listing.title %>">
+                        </div>
+                        <div class="listing-details">
+                            <h3><%= listing.title %></h3>
+                            <p class="location"><strong>Location:</strong> <%= listing.location%></p>
+                            <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
+                            <p class="price"><strong>Price:</strong> <%= listing.price%></p>
+                            <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                        </div>
                     </div>
-                    <div class="listing-details">
-                        <h3><%= listing.title %></h3>
-                        <p class="location"><strong>Location:</strong> <%= listing.location%></p>
-                        <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
-                        <p class="price"><strong>Price:</strong> <%= listing.price%></p>
-                        <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
-                    </div>
-                </div>
                 <% }) %>
-           </div>
+            </div>
         <% } else { %>
             <p>No rejected Listings yet.</p>
         <% } %>
@@ -101,8 +107,7 @@
 <%- include('../partials/footer.ejs') %>
 
 <style>
-
-.quick-nav {
+  .quick-nav {
     text-align: center;
     margin-bottom: 30px;
     position: sticky;
@@ -111,167 +116,200 @@
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-}
+  }
 
-.quick-nav a {
+  .quick-nav a {
     display: inline-block;
     margin: 0 15px;
     padding: 10px 20px;
     background-color: #f8f9fa;
-    color: #007bff;
+    color: #0072CE;
     text-decoration: none;
     border-radius: 5px;
     font-weight: 500;
     transition: background-color 0.3s;
-}
+  }
 
-.quick-nav a:hover {
+  .quick-nav a:hover {
     background-color: #e2e6ea;
-}
+  }
 
-.back-to-top-link {
-    margin-left: 15px;
-    font-size: 0.75em;
-    color: #007bff;
-    text-decoration: none;
-    vertical-align: middle;
-    font-weight: normal;
-}
-
-.back-to-top-link:hover {
-    color: #0056b3;
-    text-decoration: underline;
-}
-
-.requests-page-container {
+  .requests-page-container {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-}
+  }
 
-section {
-    margin-bottom: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-section:first-of-type {
-    border-top: none;
-}
-
-h1 {
+  h1 {
     text-align: center;
     margin-bottom: 30px;
-    color: #333;
-}
+    color: #001F4D;
+    font-size: 2em;
+  }
 
-h2 {
-    color: #007bff;
+  .styled-box {
+    margin-bottom: 50px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  .pending-bg {
+    background-color: #e8f1fc;
+  }
+
+  .approved-bg {
+    background-color: #e9fce8;
+  }
+
+  .rejected-bg {
+    background-color: #fce8e8;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
     margin-bottom: 15px;
+  }
+
+  h2 {
+    color: #005fab;
+    font-size: 1.5em;
+    margin: 0;
+  }
+
+  .back-to-top-link {
+    font-size: 0.9em;
+    text-decoration: none;
+    background-color: #0072CE;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .back-to-top-link:hover {
+    background-color: #005fab;
+  }
+
+  .AorR {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #444;
+  background-color: #e9f5ff;
+  padding: 12px 20px;
+  border: 1px solid #b6daff;
+  border-radius: 8px;
+  margin: 20px auto 30px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 114, 206, 0.1);
 }
 
-.listings-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 20px;
-padding: 20px 0;
-}
 
-.actions {
-    margin-top: 15px;
-}
+  .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
 
-.actions form .request-btn {
+  .listing-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 200px;
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .listing-details {
+    padding: 15px 0;
+    flex-grow: 1;
+  }
+
+  .listing-details h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    color: #003366;
+  }
+
+  .listing-details p {
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #555;
+  }
+
+  .view-details {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #0072CE;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  .view-details:hover {
+    background-color: #005fab;
+  }
+
+  .actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .request-btn {
     padding: 8px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
-    margin-right: 10px;
     transition: background-color 0.3s ease;
-}
+  }
 
-.actions form .request-btn-accept {
+  .request-btn-accept {
     background-color: #28a745;
     color: white;
-}
+  }
 
-.actions form .request-btn-accept:hover {
+  .request-btn-accept:hover {
     background-color: #218838;
+  }
+
+  .request-btn-reject {
+  background-color: #dc3545 !important; /* Red */
+  color: #fff !important;
 }
 
-.actions form .request-btn-reject {
-    background-color: #dc3545;
-    color: white;
+.request-btn-reject:hover {
+  background-color: #c82333 !important;
 }
 
-.actions form .request-btn-reject:hover {
-    background-color: #c82333;
-}
 
-.listing-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    padding: 20px 0;
-}
-
-.image-container {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f7f7f7;
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.image-container .no-image {
-  font-style: italic;
-  color: #777;
-}
-
-.listing-details {
-  padding: 15px;
-}
-
-.listing-details h3 {
-  margin-top: 0;
-  margin-bottom: 5px;
-  font-size: 1.2em;
-}
-
-.listing-details p {
-  margin-bottom: 8px;
-  font-size: 0.9em;
-  color: #555;
-}
-
-.listing-details strong {
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-.listing-details .view-details {
-  display: inline-block;
-  padding: 8px 15px;
-  text-decoration: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease;
-}
-
-.listing-details .view-details:hover {
-  background-color: #0056b3;
-}
 </style>

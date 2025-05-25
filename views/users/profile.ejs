@@ -1,83 +1,181 @@
 <%- include('../partials/header') %>
 
-<h1>Welcome, <%= user.first %> <%= user.last %> To Your Profile!</h1>
-<img src="<%= user.picture %>" alt="Profile Picture" width="150">
+<div class="profile-container">
+  <h1>Welcome, <%= user.first %> <%= user.last %>!</h1>
 
-<div>
-  <a href="<%= `/auth/${user._id}/update-password` %>">Update Password</a>
+  <div class="profile-info">
+    <img src="<%= user.picture %>" alt="Profile Picture">
+    <a href="/auth/<%= user._id %>/update-password" class="update-password-btn">Update Password</a>
+  </div>
+
+  <h2>Your Listings</h2>
+
+  <% if (listings && listings.length > 0) { %>
+    <div class="table-container">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% listings.forEach(listing => { %>
+            <tr>
+              <td><%= listing.title %></td>
+              <td class="status-<%= listing.status %>"><%= listing.status %></td>
+              <td>
+                <% if (user.isAdmin && listing.status === 'pending') { %>
+                  <a href="/listings/<%= listing._id %>/approve" class="action-btn approve">Approve</a>
+                  <a href="/listings/<%= listing._id %>/reject" class="action-btn reject">Reject</a>
+                <% } else { %>
+                  <span class="taken-label">Action Taken</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <p class="no-listings">You have no listings yet.</p>
+  <% } %>
 </div>
-
-<h2>Your Listings</h2>
-
-<% if (listings && listings.length > 0) { %>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% listings.forEach(listing => { %>
-        <tr>
-          <td><%= listing.title %></td>
-          <td><%= listing.status %></td>
-          <td>
-            <% if (user.isAdmin && listing.status === 'pending') { %>
-              <a href="/listings/<%= listing._id %>/approve">Approve</a>
-              <a href="/listings/<%= listing._id %>/reject">Reject</a>
-            <% } else { %>
-              <span>Action Taken</span>
-            <% } %>
-          </td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
-<% } else { %>
-  <p>You have no listings yet.</p>
-<% } %>
 
 <%- include('../partials/footer') %>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+  .profile-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
   }
 
   h1 {
-    color: #333;
+    color: #001F4D;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 30px;
   }
 
-  img {
+  h2 {
+    color: #005fab;
+    font-size: 1.5em;
+    margin: 30px 0 15px;
+    text-align: center;
+  }
+
+  .profile-info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+
+  .profile-info img {
     border-radius: 50%;
-    margin-bottom: 20px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #0072CE;
   }
 
-  a {
-    color: #007bff;
+  .update-password-btn {
+    padding: 8px 16px;
+    background-color: #0072CE;
+    color: #fff;
+    border-radius: 6px;
     text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
   }
 
-  a:hover {
-    text-decoration: underline;
+  .update-password-btn:hover {
+    background-color: #005fab;
   }
 
-  table {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .styled-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
+    font-size: 0.95em;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+  .styled-table th, .styled-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
   }
 
-  th {
+  .styled-table th {
     background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .styled-table td {
+    color: #444;
+  }
+
+  .action-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-decoration: none;
+    margin-right: 8px;
+    transition: background-color 0.3s ease;
+    color: #fff;
+  }
+
+  .approve {
+    background-color: #28a745;
+  }
+
+  .approve:hover {
+    background-color: #218838;
+  }
+
+  .reject {
+    background-color: #dc3545;
+  }
+
+  .reject:hover {
+    background-color: #c82333;
+  }
+
+  .taken-label {
+    font-style: italic;
+    color: #777;
+  }
+
+  .no-listings {
+    text-align: center;
+    font-weight: bold;
+    color: #999;
+    margin-top: 30px;
+  }
+
+  .status-approved {
+    color: #28a745;
+    font-weight: bold;
+  }
+
+  .status-rejected {
+    color: #dc3545;
+    font-weight: bold;
+  }
+
+  .status-pending {
+    color: #ffc107;
+    font-weight: bold;
   }
 </style>

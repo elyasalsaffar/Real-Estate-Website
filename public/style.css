@@ -1,10 +1,8 @@
-public/style.css
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #E6E6E6;
     color: #333;
     line-height: 1.6;
 }
@@ -21,22 +19,28 @@ main {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #333;
+    background-color: #002F6C;
     color: white;
     margin-top: 30px;
 }
 
-h1, h2, h3 {
-    color: #007bff;
+h1 {
+    color: #002D72;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2, h3 {
+    color: #2a6596;
     text-align: center;
     margin-bottom: 20px;
 }
 
 /* Navigation Bar */
 nav {
-    background-color: #007bff;
     padding: 15px 20px;
     text-align: center;
+    background-color: #002D72;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -49,8 +53,9 @@ nav a {
     transition: background-color 0.3s ease;
 }
 
-nav a:hover {
-    background-color: #0056b3;
+nav a:hover,
+nav a:focus {
+    background-color: #001f4d;
 }
 
 /* Forms */
@@ -98,11 +103,12 @@ form button[type="submit"] {
     width: 100%;
 }
 
-form button[type="submit"]:hover {
+form button[type="submit"]:hover,
+form button[type="submit"]:focus {
     background-color: #218838;
 }
 
-/* Listings Grid (for all.ejs, index.ejs, profile.ejs) */
+/* Listings Grid */
 .listings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -138,7 +144,7 @@ form button[type="submit"]:hover {
 
 .listing-details {
     padding: 15px;
-    flex-grow: 1; /* Allow details section to grow */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -148,7 +154,7 @@ form button[type="submit"]:hover {
     margin-top: 0;
     margin-bottom: 5px;
     font-size: 1.2em;
-    text-align: left; /* Align text left within card */
+    text-align: left;
 }
 
 .listing-details p {
@@ -166,20 +172,21 @@ form button[type="submit"]:hover {
     display: inline-block;
     padding: 8px 15px;
     text-decoration: none;
-    background-color: #007bff;
+    background-color: #005fab;
     color: white;
     border-radius: 5px;
     font-size: 0.9em;
     transition: background-color 0.3s ease;
-    align-self: flex-start; /* Align button to the start */
+    align-self: flex-start;
     margin-top: 10px;
 }
 
-.listing-details .view-details:hover {
-    background-color: #0056b3;
+.listing-details .view-details:hover,
+.listing-details .view-details:focus {
+    background-color: #0471cb;
 }
 
-/* Specific styles for single listing (show.ejs) */
+/* Single Listing */
 .single-listing {
     max-width: 800px;
     margin: 20px auto;
@@ -196,13 +203,13 @@ form button[type="submit"]:hover {
 }
 
 .single-listing .image-container {
-    height: 400px; /* Larger image for single view */
+    height: 400px;
     margin-bottom: 20px;
 }
 
 .single-listing .listing-details {
-    padding: 0; /* Remove padding if added by parent */
-    display: block; /* Override flex for single view */
+    padding: 0;
+    display: block;
 }
 
 .single-listing .listing-details p {
@@ -221,11 +228,12 @@ form button[type="submit"]:hover {
     transition: background-color 0.3s ease;
 }
 
-.single-listing .back-button:hover {
+.single-listing .back-button:hover,
+.single-listing .back-button:focus {
     background-color: #5a6268;
 }
 
-/* Requests Page Specific CSS (requests.ejs) */
+/* Requests Page */
 .requests-page-container {
     padding: 20px;
     max-width: 1200px;
@@ -248,28 +256,30 @@ form button[type="submit"]:hover {
     margin: 0 15px;
     padding: 10px 20px;
     background-color: #f8f9fa;
-    color: #007bff;
+    color: #0072CE;
     text-decoration: none;
     border-radius: 5px;
     font-weight: 500;
     transition: background-color 0.3s;
 }
 
-.quick-nav a:hover {
+.quick-nav a:hover,
+.quick-nav a:focus {
     background-color: #e2e6ea;
 }
 
 .back-to-top-link {
     margin-left: 15px;
     font-size: 0.75em;
-    color: #007bff;
+    color: #0072CE;
     text-decoration: none;
     vertical-align: middle;
     font-weight: normal;
 }
 
-.back-to-top-link:hover {
-    color: #0056b3;
+.back-to-top-link:hover,
+.back-to-top-link:focus {
+    color: #005fab;
     text-decoration: underline;
 }
 
@@ -283,6 +293,7 @@ section:first-of-type {
     border-top: none;
 }
 
+/* Buttons */
 .actions {
     margin-top: 15px;
 }
@@ -297,12 +308,18 @@ section:first-of-type {
     transition: background-color 0.3s ease;
 }
 
+.btn:hover,
+.btn:focus {
+    filter: brightness(0.95);
+}
+
 .accept-btn {
     background-color: #28a745;
     color: white;
 }
 
-.accept-btn:hover {
+.accept-btn:hover,
+.accept-btn:focus {
     background-color: #218838;
 }
 
@@ -311,6 +328,55 @@ section:first-of-type {
     color: white;
 }
 
-.reject-btn:hover {
+.reject-btn:hover,
+.reject-btn:focus {
     background-color: #c82333;
+}
+
+.reject-btn:disabled {
+    background-color: #f5c6cb;
+    cursor: not-allowed;
+}
+
+/* Auth Messages */
+.auth-message {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 18px 25px;
+    color: #ffffff !important;
+    background-color: #0072CE;
+    border-left: 6px solid #002F6C;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.15em;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.auth-message:hover {
+    transform: scale(1.02);
+}
+
+.signed-in-message {
+    background-color: #f0f8ff;
+    color: #175797;
+    padding: 12px 20px;
+    border-left: 5px solid #002F6C;
+    border-radius: 4px;
+    font-size: 1.1em;
+    font-weight: 500;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.signed-in-message a {
+    color: #002F6C;
+    text-decoration: underline;
+}
+.signed-in-message a:hover,
+.signed-in-message a:focus {
+    color: #001f4d;
+    text-decoration: none;
 }
