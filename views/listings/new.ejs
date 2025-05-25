@@ -9,7 +9,7 @@
     <label for="description">Description:</label>
     <textarea name="description" id="description" placeholder="Describe your property..." required></textarea>
 
-    <label for="isForSale">Type:</label>
+    <label for="isForSale">Listing Purpose:</label>
     <select name="isForSale" id="isForSale" required>
         <option value="">Select Type</option>
         <option value="true">For Sale</option>
@@ -17,7 +17,17 @@
     </select>
     
     <label for="propertyType">Property Type:</label>
-    <input type="text" id="propertyType" name="propertyType" placeholder="eg: House/ Apartment" required>
+    <select name="propertyType" id="propertyType" required>
+        <option value="">Select Property Type</option>
+        <option value="Warehouse">Warehouse</option>
+        <option value="Garage">Garage</option>
+        <option value="Shop">Shop</option>
+        <option value="Office">Office</option>
+        <option value="Villa">Villa</option>
+        <option value="Residential Building">Residential Building</option>
+        <option value="Commercial Building">Commercial Building</option>
+        <option value="Residential Apartment">Residential Apartment</option>
+    </select>
 
     <label for="bedrooms">Bedrooms:</label>
     <input type="number" id="bedrooms" name="bedrooms" placeholder="Number of bedrooms" min="0" required>

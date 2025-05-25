@@ -4,8 +4,15 @@ const Comment = require('../models/Comment.js');
 
 const getAllListings = async (req, res) => {
     try {
-        const listings = await Listing.find({});
-        res.render('./listings/all.ejs', { listings });
+        const filterQuery = { isApproved: true };
+        if (req.query.isForSale) {
+            filterQuery.isForSale = (req.query.isForSale === 'true');
+        }
+        if (req.query.propertyType) {
+            filterQuery.propertyType = req.query.propertyType;
+        }
+        const listings = await Listing.find(filterQuery);
+        res.render('./listings/all.ejs', { listings, user: req.session.user });
     } catch (error) {
         console.error('An error occurred getting all listings!', error.message);
     }
@@ -16,7 +23,7 @@ const getAllRequests = async (req, res) => {
         const pendingListings = await Listing.find({ isApproved: {$in: [ null, undefined ]} });
         const approvedListings = await Listing.find({ isApproved: true });
         const rejectedListings = await Listing.find({ isApproved: false });
-        res.render('./listings/requests.ejs', { pendingListings, approvedListings, rejectedListings, user: req.user });
+        res.render('./listings/requests.ejs', { pendingListings, approvedListings, rejectedListings, user: req.session.user });
     } catch (error) {
         console.error('An error occurred getting all request listings!', error.message);
     }
@@ -52,9 +59,29 @@ const getSingleListing = async (req, res) => {
 const createListing = async (req, res) => {
     try {
         const user = await User.findById(req.body.author);
-        const listing = await Listing.create(req.body);
+
+        let imageUrls = [];
+        if (req.body.images) {
+            imageUrls = req.body.images.split(',').map(url => url.trim()).filter(url => url.length > 0);
+        }
+        const listingData = {
+            title: req.body.title,
+            description: req.body.description,
+            isForSale: req.body.isForSale,
+            propertyType: req.body.propertyType,
+            bedrooms: req.body.bedrooms,
+            bathrooms: req.body.bathrooms,
+            areaSize: req.body.areaSize,
+            location: req.body.location,
+            images: imageUrls,
+            price: req.body.price,
+            status: req.body.status,
+            author: req.body.author
+        }
+
+        const listing = await Listing.create(listingData);
         user.listings.push(listing._id);
-        user.save();
+        await user.save();
         res.redirect(`/listings/${listing._id}`);
     } catch (error) {
         console.error('An error has occurred adding a listing');

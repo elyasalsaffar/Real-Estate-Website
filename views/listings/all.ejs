@@ -1,6 +1,37 @@
 <%- include('../partials/header.ejs') %>
 
 <h2>Find a Real Estate Suitable to Your Lifestyle!</h2>
+
+<div class="filters-container">
+  <h3 id="filter-toggle" style="cursor: pointer">Filter Listings ▼</h3>
+  <div id="filter-form-content" class="hidden">
+  <form action="/listings/all" method="GET" class="filter-form">
+    <label for="isForSale">Type:</label>
+    <select name="isForSale" id="isForSale">
+      <option value="">Listing Types</option>
+      <option value="true">For Sale</option>
+      <option value="false">For Rent</option>
+    </select>
+
+    <label for="propertyType">Property Type:</label>
+     <select name="propertyType" id="propertyType">
+        <option value="">Select Property Type</option>
+        <option value="Warehouse">Warehouse</option>
+        <option value="Garage">Garage</option>
+        <option value="Shop">Shop</option>
+        <option value="Office">Office</option>
+        <option value="Villa">Villa</option>
+        <option value="Residential Building">Residential Building</option>
+        <option value="Commercial Building">Commercial Building</option>
+        <option value="Residential Apartment">Residential Apartment</option>
+    </select>
+
+    <button type="submit">Apply Filters</button>
+    <a href="/listings/all" class="clear-filters-btn">Clear Filters</a>
+  </form>
+</div>
+</div>
+
 <div class="listings-grid">
     <% listings.forEach(listing => { %>
         <% if (listing.isApproved) { %>
@@ -26,8 +57,6 @@
 
 
 <style>
-
-
   .image-container .no-image {
     font-style: italic;
     color: #777;
@@ -46,4 +75,73 @@
   .listing-details .view-details:hover {
     background-color: #005fab; 
   }
+
+  .filters-container {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .filters-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+
+  .filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .filter-form label {
+    white-space: nowrap;
+    margin-right: 5px;
+  }
+
+  .filter-form select,
+  .filter-form button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+  }
+
+  .filter-form select {
+    min-width: 100px;
+    max-width: 150px;
+    flex-grow: 1;
+  }
+
+  .filter-form button {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .clear-filters-btn {
+    text-decoration: none;
+    color: lightblue;
+  }
+
 </style>
+
+<script>
+  // JavaScript to toggle filter visibility
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterToggle = document.getElementById('filter-toggle');
+    const filterFormContent = document.getElementById('filter-form-content');
+    if (filterToggle && filterFormContent) {
+      filterToggle.addEventListener('click', () => {
+        filterFormContent.classList.toggle('hidden');
+      })
+    }
+  });
+</script>

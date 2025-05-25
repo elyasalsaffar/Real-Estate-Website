@@ -14,6 +14,9 @@ const db = require('./db');
 
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -49,6 +52,14 @@ app.use('/auth', authRouter);
 app.use('/users', userRouter);
 
 app.use('/listings', listingRouter);
+
+app.get('/about-us', (req, res) => {
+  res.render('about-us');
+});
+
+app.get('/contact-us', (req, res) => {
+  res.render('contact-us');
+});
 
 app.use('/', commentRouter);
 
