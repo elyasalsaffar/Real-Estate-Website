@@ -16,12 +16,34 @@ Ahmed Alaali
 
 📸 Screenshots
 
-Homepage 
-	Listings details 
-  Admin profile
-   view Requests
+**🏠 Homepage**  
+![Homepage Screenshot](images/homepage.png)
 
-These images represent different features and pages of the application
+
+
+**📄 Listing Details**  
+![Listing Details Screenshot](images/viewdetails.png)
+
+
+
+**👤 Admin Profile**  
+![Admin Profile Screenshot](images/adminpage.png)
+
+
+
+**📥 View Requests**  
+![View Requests Screenshot](images/reqPAge.png)
+
+
+**🗂 ERD Diagram**  
+![ERD Diagram](images/erd.png)
+
+  
+**📋 Trello Board**  
+![Trello Board Screenshot](images/trello.png)
+
+
+These images represent different features and pages of the application along with planning tools.
 
 ----
 
