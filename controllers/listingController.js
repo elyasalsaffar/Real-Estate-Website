@@ -88,11 +88,21 @@ const createListing = async (req, res) => {
     }
 };
 
+const deleteListingRequest = async (req, res) => {
+    try {
+        await Listing.findByIdAndDelete(req.params.id);
+        res.redirect('/listings/requests');
+    } catch (error) {
+        console.error('An error occurred deleting a listing', error.message);
+    }
+};
+
 module.exports = {
     getAllListings,
     getSingleListing,
     getAllRequests,
     approveListing,
     rejectListing,
-    createListing
+    createListing,
+    deleteListingRequest
 }
