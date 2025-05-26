@@ -37,6 +37,9 @@
                                 <form action="/listings/requests/<%= listing._id %>/reject" method="POST">
                                     <button type="submit" class="request-btn request-btn-reject">Reject</button>
                                 </form>
+                                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="request-btn request-btn-reject">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -66,6 +69,11 @@
                             <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
                             <p class="price"><strong>Price:</strong> <%= listing.price%></p>
                             <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                            <div class="actions">
+                              <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="request-btn request-btn-reject">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 <% }) %>
@@ -94,6 +102,11 @@
                             <p class="area-size"><strong>Area:</strong> <%= listing.areaSize%></p>
                             <p class="price"><strong>Price:</strong> <%= listing.price%></p>
                             <a href="/listings/<%= listing._id %>" class="view-details">View Details</a>
+                            <div class="actions">
+                                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="request-btn request-btn-reject">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 <% }) %>
@@ -311,5 +324,13 @@
   background-color: #c82333 !important;
 }
 
+.request-btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.request-btn-delete:hover {
+  background-color: #c82333;
+}
 
 </style>

@@ -11,6 +11,8 @@ router.post('/requests/:id/approve', listingController.approveListing);
 
 router.post('/requests/:id/reject', listingController.rejectListing);
 
+router.delete('/:id', listingController.deleteListingRequest);
+
 router.post('/', listingController.createListing);
 
 router.get('/:id', listingController.getSingleListing);

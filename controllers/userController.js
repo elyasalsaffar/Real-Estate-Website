@@ -4,6 +4,7 @@ const getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id).populate('listings');
         const data = {
+            _id: user._id,
             first: user.first,
             last: user.last,
             picture: user.picture,
