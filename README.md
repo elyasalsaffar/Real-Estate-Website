@@ -16,12 +16,12 @@ Ahmed Alaali
 
 📸 Screenshots
 
-Homepage
+Homepage 
 	Listings details 
   Admin profile
    view Requests
 
-These images represent different features and pages of the application.
+These images represent different features and pages of the application
 
 ----
 
